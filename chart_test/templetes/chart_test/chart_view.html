@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CHART</title>
+</head>
+<body>
+    {{ name }}
+    {{ price }}
+    {{ ctgColor }}
+
+<div>
+  <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('myChart')
+
+    const data = {
+        labels: {{ name|safe }},
+        price: {{ price|safe }},
+        ctgColor: {{ ctgColor|safe }}
+    }
+
+    const chartData = {
+        labels : data.labels,
+        datasets: [{
+            data: data.price,
+            backgroundColor: data.ctgColor
+        }]
+    }
+
+    const config = {
+        type: 'pie',
+        data: chartData,
+        options: {
+            responsive: false,
+            plugins: {
+                legend: {
+                    display: true,
+                },
+                title: {
+                    display: true,
+                    text: 'chart test'
+                }
+            }
+        }
+    }
+
+    new Chart(ctx, config)
+</script>
+</body>
+</html>
